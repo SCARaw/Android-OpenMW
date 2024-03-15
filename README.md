@@ -1,7 +1,3 @@
-# No longer under development
-
-You can download one of the old builds from the Releases tab.
-
 # OpenMW for Android
 
 [Google Play](https://play.google.com/store/apps/details?id=is.xyz.omw) | [Google Play (Nightly)](https://play.google.com/store/apps/details?id=is.xyz.omw_nightly)
