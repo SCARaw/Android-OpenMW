@@ -1,0 +1,76 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ilya Zhuravlev <whatever@xyz.is>
+Date: Sun, 28 Apr 2019 18:16:37 -0400
+Subject: [PATCH] android: fix context being lost on app minimize
+
+---
+ apps/openmw/engine.cpp         | 8 ++++++++
+ components/debug/debugging.cpp | 5 +++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/apps/openmw/engine.cpp b/apps/openmw/engine.cpp
+index 012ab8f59..84b6d60b2 100644
+--- a/apps/openmw/engine.cpp
++++ b/apps/openmw/engine.cpp
+@@ -482,6 +482,9 @@ std::string OMW::Engine::loadSettings (Settings::Manager & settings)
+     return settingspath;
+ }
+ 
++// To share the viewer with Android interfaces
++osg::ref_ptr<osgViewer::Viewer> g_viewer;
++
+ void OMW::Engine::createWindow(Settings::Manager& settings)
+ {
+     int screen = settings.getInt("screen", "Video");
+@@ -599,6 +602,9 @@ void OMW::Engine::createWindow(Settings::Manager& settings)
+     mViewer->realize();
+ 
+     mViewer->getEventQueue()->getCurrentEventState()->setWindowRectangle(0, 0, graphicsWindow->getTraits()->width, graphicsWindow->getTraits()->height);
++
++    // To share the viewer with Android interfaces
++    g_viewer = mViewer;
+ }
+ 
+ void OMW::Engine::setWindowIcon()
+@@ -942,6 +948,8 @@ void OMW::Engine::go()
+         mEnvironment.limitFrameRate(frameTimer.time_s());
+     }
+ 
++    g_viewer.release();
++
+     // Save user settings
+     settings.saveUser(settingspath);
+ 
+diff --git a/components/debug/debugging.cpp b/components/debug/debugging.cpp
+index dfed077e3..75fca4e3c 100644
+--- a/components/debug/debugging.cpp
++++ b/components/debug/debugging.cpp
+@@ -8,6 +8,8 @@
+ #   include <windows.h>
+ #endif
+ 
++#include <osgViewer/Viewer>
++
+ namespace Debug
+ {
+ #ifdef _WIN32
+@@ -86,6 +88,8 @@ namespace Debug
+     }
+ }
+ 
++extern osg::ref_ptr<osgViewer::Viewer> g_viewer;
++
+ int wrapApplication(int (*innerApplication)(int argc, char *argv[]), int argc, char *argv[], const std::string& appName)
+ {
+ #if defined _WIN32
+@@ -139,6 +143,7 @@ int wrapApplication(int (*innerApplication)(int argc, char *argv[]), int argc, c
+     }
+     catch (std::exception& e)
+     {
++        g_viewer.release();
+ #if (defined(__APPLE__) || defined(__linux) || defined(__unix) || defined(__posix))
+         if (!isatty(fileno(stdin)))
+ #endif
+-- 
+2.28.0
+
