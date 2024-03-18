@@ -1,8 +1,21 @@
-Android OpenMW
+# Android OpenMW
 
 FAQ & Info
-Version
+Version 47.0 EN
 This is barely functional 0.47 with fixed mess after Docent and a lot of hopium and not much coding knowledge 
+
+# feedback and help
+feel free to submit any fixes or issues you can find, just keep in mind i mostly wanna have fun playing, developing is more as side hobby
+i also don't feel very competent with android systems therefor all help is appreciated
+
+
+
+
+
+
+
+
+# making your own build
 
 There are two steps for building OpenMW for Android. The first step is building C/C++ libraries. The second step is building the Java launcher.
 Prerequisites
