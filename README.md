@@ -1,21 +1,28 @@
 # Android OpenMW
 
 FAQ & Info
-Version 47.0 EN
-This is barely functional 0.47 with fixed mess after Docent and a lot of hopium and not much coding knowledge 
 
-# feedback and help
+Version 47.0 EN
+
+This is barely functional 0.47 with fixed mess after Docent and a lot of hopium and not much coding knowledge
+
+Version fix rendering of flora and map to provide stable framerate and consistent experience in the game
+
+Build does not leave oddities or artifacts from Graphic Herbalism integration
+
+# Feedback and help
 feel free to submit any fixes or issues you can find, just keep in mind i mostly wanna have fun playing, developing is more as side hobby
 i also don't feel very competent with android systems therefor all help is appreciated
 
+# Guide to run Morrowind on Android
+https://www.nexusmods.com/morrowind/articles/408
+
+if you need it
 
 
 
 
-
-
-
-# making your own build
+# Making your own build
 
 There are two steps for building OpenMW for Android. The first step is building C/C++ libraries. The second step is building the Java launcher.
 Prerequisites
